@@ -30,7 +30,7 @@ test.describe('SauceDemo Login', () => {
         await inventoryPage.expectInventoryPageVisible();
 
         await inventoryPage.logout();
-        
+
         await loginPage.expectLoginPageVisible();
     });
 });
