@@ -15,5 +15,15 @@ export class InventoryPage {
         this.logoutLink = page.locator("[data-test='logout-sidebar-link']");
     }
 
+    async expectInventoryPageVisible() {
+        await expect(this.page).toHaveURL(/.*inventory.html/);
+        await expect(this.inventoryContainer).toBeVisible();
+        await expect(this.shoppingCartLink).toBeVisible();
+    }
 
+    async logout() {
+
+        await this.menuButton.click();
+        await this.logoutLink.click();
+    }
 }
