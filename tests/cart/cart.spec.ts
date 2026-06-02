@@ -42,5 +42,5 @@ test.describe("SauceDemo Cart Functionality", () => {
 
         await cartPage.removeFirstItem();
         await cartPage.expectCartEmpty();
-    })
+    });
 });
