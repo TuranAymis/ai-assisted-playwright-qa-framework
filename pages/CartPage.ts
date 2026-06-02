@@ -34,4 +34,8 @@ export class CartPage {
   async expectCartEmpty() {
     await expect(this.cartItems).toHaveCount(0);
   }
+
+  async proceedToCheckout() {
+    await this.checkoutButton.click();
+  }
 }
