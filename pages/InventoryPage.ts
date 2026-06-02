@@ -13,6 +13,8 @@ export class InventoryPage {
   readonly inventoryItemPrices: Locator;
   readonly inventoryItemImages: Locator;
   readonly addToCartButtons: Locator;
+  readonly firstAddToCartButton: Locator;
+  readonly cartBadge: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,14 +25,12 @@ export class InventoryPage {
     this.pageTitle = page.locator("[data-test='title']");
     this.inventoryItems = page.locator("[data-test='inventory-item']");
     this.inventoryItemNames = page.locator("[data-test='inventory-item-name']");
-    this.inventoryItemDescriptions = page.locator(
-      "[data-test='inventory-item-desc']",
-    );
-    this.inventoryItemPrices = page.locator(
-      "[data-test='inventory-item-price']",
-    );
+    this.inventoryItemDescriptions = page.locator("[data-test='inventory-item-desc']");
+    this.inventoryItemPrices = page.locator("[data-test='inventory-item-price']");
     this.inventoryItemImages = page.locator(".inventory_item_img img");
     this.addToCartButtons = page.locator("button[data-test^='add-to-cart']");
+    this.firstAddToCartButton = page.locator("button[data-test^='add-to-cart']").first();
+    this.cartBadge = page.locator("[data-test='shopping-cart-badge']");
   }
 
   async expectInventoryPageVisible() {
@@ -66,5 +66,17 @@ export class InventoryPage {
 
   async expectAddToCartButtonsVisible(expectedCount: number) {
     await expect(this.addToCartButtons).toHaveCount(expectedCount);
+  }
+
+  async addFirstItemToCart() {
+    await this.firstAddToCartButton.click();
+  }
+
+  async expectCartBadgeCount(expectedCount: string) {
+    await expect(this.cartBadge).toHaveText(expectedCount);
+  }
+
+  async goToCart() {
+    await this.shoppingCartLink.click();
   }
 }
