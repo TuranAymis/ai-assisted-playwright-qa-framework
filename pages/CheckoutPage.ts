@@ -40,4 +40,8 @@ export class CheckoutPage {
     async continueCheckout() {
         await this.continueButton.click();
     }
+
+    async expectErrorMessage(expectedMessage: string) {
+        await expect(this.errorMessage).toHaveText(expectedMessage);
+    }
 }
