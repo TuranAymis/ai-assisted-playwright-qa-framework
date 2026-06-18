@@ -1,12 +1,10 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../../fixtures/pages";
 
 test.describe("SauceDemo Login Page - Smoke Tests", () => {
-  test("should display login page elements", async ({ page }) => {
-    await page.goto("https://www.saucedemo.com/");
+  test("should display login page elements", async ({ loginPage }) => {
+    await loginPage.goto();
 
-    await expect(page).toHaveTitle(/Swag Labs/);
-    await expect(page.locator('[data-test="username"]')).toBeVisible();
-    await expect(page.locator('[data-test="password"]')).toBeVisible();
-    await expect(page.locator('[data-test="login-button"]')).toBeVisible();
+    await expect(loginPage.page).toHaveTitle(/Swag Labs/);
+    await loginPage.expectLoginPageVisible();
   });
 });
