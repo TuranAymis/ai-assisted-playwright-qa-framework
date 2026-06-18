@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { test } from "../../fixtures/pages";
 import { CheckoutOverviewPage } from "../../pages/CheckoutOverviewPage";
 import { CheckoutCompletePage } from "../../pages/CheckoutCompletePage";
 import { checkoutUser } from "../../test-data/checkoutUsers";
