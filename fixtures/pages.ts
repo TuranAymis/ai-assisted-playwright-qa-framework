@@ -5,10 +5,12 @@ import { CartPage } from "../pages/CartPage";
 import { CheckoutPage } from "../pages/CheckoutPage";
 import { CheckoutCompletePage } from "../pages/CheckoutCompletePage";
 import { CheckoutOverviewPage } from "../pages/CheckoutOverviewPage";
+import { loginAsStandardUser } from "../utils/auth";
 
 type PageFixtures = {
     loginPage: LoginPage;
     inventoryPage: InventoryPage;
+    loggedInInventoryPage: InventoryPage;
     cartPage: CartPage;
     checkoutPage: CheckoutPage;
     checkoutOverviewPage: CheckoutOverviewPage;
@@ -22,6 +24,11 @@ export const test = base.extend<PageFixtures>({
 
     inventoryPage: async ({ page }, use) => {
         await use(new InventoryPage(page));
+    },
+
+    loggedInInventoryPage: async ({ page }, use) => {
+        const { inventoryPage } = await loginAsStandardUser(page);
+        await use(inventoryPage);
     },
 
     cartPage: async ({ page }, use) => {
