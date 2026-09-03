@@ -12,6 +12,7 @@ type PageFixtures = {
     inventoryPage: InventoryPage;
     loggedInInventoryPage: InventoryPage;
     cartPage: CartPage;
+    cartWithFirstItemPage: CartPage;
     checkoutPage: CheckoutPage;
     checkoutOverviewPage: CheckoutOverviewPage;
     checkoutCompletePage: CheckoutCompletePage;
@@ -35,6 +36,20 @@ export const test = base.extend<PageFixtures>({
         await use(new CartPage(page));
     },
 
+    cartWithFirstItemPage: async ({ page }, use) => {
+        const { inventoryPage } = await loginAsStandardUser(page);
+        const cartPage = new CartPage(page);
+
+        await inventoryPage.addFirstItemToCart();
+        await inventoryPage.expectCartBadgeCount("1");
+        await inventoryPage.goToCart();
+
+        await cartPage.expectCartPageVisible();
+        await cartPage.expectCartItemCount(1);
+
+        await use(cartPage);
+    },
+
     checkoutPage: async ({ page }, use) => {
         await use(new CheckoutPage(page));
     },
@@ -46,6 +61,8 @@ export const test = base.extend<PageFixtures>({
     checkoutCompletePage: async ({ page }, use) => {
         await use(new CheckoutCompletePage(page));
     },
+
+
 });
 
 export { expect } from "@playwright/test";
